@@ -47,13 +47,13 @@ CREATE TABLE user_settings (
 CREATE TABLE tasks (
     id TEXT PRIMARY KEY DEFAULT (hex(randomblob(16))),
     user_id TEXT NOT NULL,
+    tag_id TEXT REFERENCES tags(id) ON DELETE SET NULL,
     title TEXT NOT NULL CHECK (length(title) > 0 AND length(title) <= 200),
     description TEXT CHECK (length(description) <= 1000),
     status TEXT DEFAULT 'todo' CHECK (status IN ('todo', 'in_progress', 'done')),
-    priority INTEGER DEFAULT 0 CHECK (priority BETWEEN 0 AND 3), -- 0=low, 3=high
-    tag TEXT CHECK (length(tag) <= 50), -- e.g. 'Work', 'Personal'
-    total_focus_time INTEGER DEFAULT 0, -- total minutes focused on this task
-    estimated_time INTEGER, -- estimated completion time in minutes
+    priority INTEGER DEFAULT 0 CHECK (priority BETWEEN 0 AND 3),
+    total_focus_time INTEGER DEFAULT 0,
+    estimated_time INTEGER,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     completed_at DATETIME,
