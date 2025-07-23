@@ -53,7 +53,7 @@ CREATE TABLE tasks (
     status TEXT DEFAULT 'todo' CHECK (status IN ('todo', 'in_progress', 'done')),
     priority INTEGER DEFAULT 0 CHECK (priority BETWEEN 0 AND 3),
     total_focus_time INTEGER DEFAULT 0,
-    estimated_time INTEGER,
+    estimated_time INTEGER CHECK (estimated_time >= 0),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     completed_at DATETIME,
@@ -73,7 +73,7 @@ CREATE TABLE tags (
     name TEXT NOT NULL CHECK (length(name) > 0 AND length(name) <= 50),
    color TEXT DEFAULT '#6366f1' CHECK (
     length(color) = 7 AND color GLOB '#[0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f]'
-   )
+   ),
     is_custom BOOLEAN DEFAULT true,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
@@ -218,7 +218,7 @@ Users (1) ←→ (N) TagStats
 
 ### 3.2 Key Relationships
 - **User → Tasks**: One user can have many tasks
-- **Task → Tags**: Many-to-many relationship for flexible tagging
+- **Task → Tags**: One-to-many relationship. Each task has one tag
 - **User → Sessions**: One user can have many timer sessions
 - **Session → Task**: Each session can be associated with one task (optional)
 - **Session → Bird**: Each session can unlock at most one bird
