@@ -78,16 +78,6 @@ CREATE TABLE tags (
     UNIQUE(user_id, name) -- Prevent duplicate tag names per user
 );
 
--- Many-to-many relationship between tasks and tags
-CREATE TABLE task_tags (
-    task_id TEXT NOT NULL,
-    tag_id TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (task_id, tag_id),
-    FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
-    FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
-);
-
 -- Predefined tags for new users
 INSERT INTO tags (id, user_id, name, color, is_custom) VALUES
     ('work_tag', 'default', 'Work', '#ef4444', false),
