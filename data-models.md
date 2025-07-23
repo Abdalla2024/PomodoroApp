@@ -71,7 +71,9 @@ CREATE TABLE tags (
     id TEXT PRIMARY KEY DEFAULT (hex(randomblob(16))),
     user_id TEXT NOT NULL,
     name TEXT NOT NULL CHECK (length(name) > 0 AND length(name) <= 50),
-   -- color TEXT DEFAULT '#6366f1' CHECK (length(color) = 7 AND color LIKE '#%'),
+   color TEXT DEFAULT '#6366f1' CHECK (
+    length(color) = 7 AND color GLOB '#[0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f]'
+   )
     is_custom BOOLEAN DEFAULT true,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
