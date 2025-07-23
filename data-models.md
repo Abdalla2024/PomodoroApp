@@ -34,7 +34,6 @@ CREATE TABLE user_settings (
     visual_alerts BOOLEAN DEFAULT true,
     default_focus_time INTEGER DEFAULT 25, -- minutes
     default_break_time INTEGER DEFAULT 5,  -- minutes
-    theme TEXT DEFAULT 'light' CHECK (theme IN ('light', 'dark', 'auto')),
     egg_animation_speed REAL DEFAULT 1.0,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
