@@ -4,7 +4,7 @@
 
 ### 1.1 Database Choice
 
-**SQLite** - Local-first approach for offline functionality and privacy
+**Swift** - Local-first approach for offline functionality and privacy
 
 - Embedded database requiring no server setup
 - ACID compliance for data integrity
